@@ -35,16 +35,8 @@ jobs:
       
       - name: Run Pytest
         run: pytest -v ./app
-      
-      - name: Install Shellcheck
-        run: |
-          sudo apt update
-          sudo apt install -y shellcheck
-      
-      - name: Check shell script
-        run: shellcheck ./scripts/server-info.sh
   
-  shell-test:
+  scripts-test:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout code
@@ -57,6 +49,12 @@ jobs:
       
       - name: Run shellcheck
         run: shellcheck ./scripts/server-info.sh
+  
+  hello:
+    runs-on: ubuntu-22.04
+    needs: [app-tests, scripts-test]
+    steps:
+      - run: echo "Hello world"
 
   # build:
   #   runs-on: ubuntu-22.04
