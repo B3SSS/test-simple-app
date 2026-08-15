@@ -1,0 +1,9 @@
+galaxy_info:
+  author: Dmitry Uvarov
+  description: Role for deploying simple-app
+  min_ansible_version: 2.21
+  platforms:
+    name: Ubuntu
+    versions:
+      - jammy
+dependencies: []

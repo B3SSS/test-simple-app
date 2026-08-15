@@ -1,0 +1,53 @@
+---
+- name: Remove conflicting packages
+  ansible.builtin.apt:
+    name: "{{ docker_packages.conflicting }}"
+    state: absent
+
+- name: Install common packages
+  ansible.builtin.apt:
+    name: "{{ docker_packages.common }}"
+    state: present
+
+- name: Ensure dir /etc/apt/keyrings exists
+  ansible.builtin.file:
+    name: "/etc/apt/keyrings"
+    state: directory
+    mode: "0755"
+    owner: root
+    group: root
+
+- name: Download Docker repository GPG key
+  ansible.builtin.get_url:
+    url: "{{ docker_repository_url }}/gpg"
+    dest: "{{ docker_repository_gpg_key_path }}"
+    mode: "0644"
+    owner: root
+    group: root
+
+- name: Get server architecture
+  ansible.builtin.shell: "dpkg --print-architecture"
+  register: host_arch
+  changed_when: false
+
+- name: Add Docker repository to APT
+  ansible.builtin.copy:
+    dest: "/etc/apt/sources.list.d/docker.sources"
+    content: |
+      Types: deb
+      URIs: {{ docker_repository_url }}
+      Suites: {{ docker_distribution_release }}
+      Components: stable
+      Architectures: {{ host_arch.stdout }}
+      Signed-By: {{ docker_repository_gpg_key_path }}
+    mode: "0644"
+    owner: root
+    group: root
+
+- name: Install Docker packages
+  ansible.builtin.apt:
+    name: "{{ docker_packages.required }}"
+    state: present
+    update_cache: true
+  notify: docker_running
+...

@@ -1,0 +1,8 @@
+all:
+  children:
+    web:
+      hosts:
+        simple-app:
+          ansible_host: 94.241.139.27
+          ansible_user: ubuntu
+

@@ -1,0 +1,8 @@
+---
+- name: Configure server and deploy simple-app
+  hosts: web
+  gather_facts: true
+  become: true
+  roles:
+    - docker
+...

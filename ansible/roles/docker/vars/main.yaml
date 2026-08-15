@@ -1,0 +1,24 @@
+---
+docker_packages:
+  conflicting:
+    - "docker.io"
+    - "docker-compose"
+    - "docker-compose-v2"
+    - "docker-doc"
+    - "docker-buildx"
+    - "podman-docker"
+  common:
+    - "ca-certificates"
+    - "curl"
+  required:
+    - "docker-ce"
+    - "docker-ce-cli"
+    - "docker-buildx-plugin"
+    - "docker-compose-plugin"
+    - "containerd.io"
+
+docker_repository_url: "https://download.docker.com/linux/ubuntu"
+docker_repository_gpg_key_path: "/etc/apt/keyrings/docker.asc"
+
+docker_distribution_release: '{{ ansible_facts["distribution_release"] }}'
+...
