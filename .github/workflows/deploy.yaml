@@ -54,6 +54,9 @@ jobs:
     runs-on: ubuntu-22.04
     needs: [app-tests, scripts-test]
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
       - name: Setup Docker
         uses: docker/setup-buildx-action@v3
       
