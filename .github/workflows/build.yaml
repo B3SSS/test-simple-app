@@ -47,4 +47,4 @@ jobs:
         run: docker run -d -p 5000:5000 simple-app:latest
       
       - name: Test container health
-        run: curl -f http://localhost:5000/health  
+        run: sleep 10 && curl -f http://localhost:5000/health  
