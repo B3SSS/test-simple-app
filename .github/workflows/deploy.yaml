@@ -13,7 +13,7 @@ on:
   # DOCKER_IMAGE_TAG: ${{ github.sha }}
 
 jobs:
-  tests:
+  app-tests:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout code
@@ -35,13 +35,19 @@ jobs:
       
       - name: Run Pytest
         run: pytest -v ./app
+  
+  shell-test:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
       
-      - name: Install Shellcheck
+      - name: Install shellcheck
         run: |
-          sudo apt update
-          sudo apt install -y shellcheck
+          apt update
+          apt install -y shellcheck
       
-      - name: Check shell script
+      - name: Run shellcheck
         run: shellcheck ./scripts/server-info.sh
 
   # build:
