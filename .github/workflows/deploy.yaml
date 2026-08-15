@@ -68,7 +68,7 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          tags: ${{ env.DOCKER_IMAGE_NAME }}:${{ env.DOCKER_IMAGE_TAG }} ${{ env.DOCKER_IMAGE_NAME }}:latest
+          tags: ${{ env.DOCKER_IMAGE_NAME }}:${{ env.DOCKER_IMAGE_TAG }}
 
   # deploy:
   #   runs-on: ubuntu-22.04
