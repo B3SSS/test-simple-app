@@ -27,7 +27,7 @@ jobs:
       - name: Upgrage PIP and install dependencies
         run: |
           python3 -m pip install --upgrade pip
-          pip3 install flake8 pytest
+          pip3 install flake8 pytest httpx2
           pip3 install -r ./app/requirements.txt
       
       - name: Run Flake8
