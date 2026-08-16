@@ -1,14 +1,14 @@
-networks:
-  simple-app-net:
-    driver: bridge
-
 services:
-  simple-app:
-    image: uvadm/simple-app:tag
-    container_name: simple-app-container
-    hostname: simple-app
-    user: appuser
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app-container
     ports:
       - "5000:5000"
-    networks:
-      - simple-app-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
